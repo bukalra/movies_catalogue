@@ -7,15 +7,23 @@
        <h1 class="mt-5">Witaj w mojej bibliotece filmów</h1>
        <p class="lead">Znajdziesz tutaj tylko najlepsze tytuły!</p>
    </div>
+   <div class="col-lg-12 mb-4">
+    {% for dict in list_to_choose %}
+    {% for key,value in dict.items() %}
+    <a href="{{ url_for('homepage', list_type=key)}}"  class="btn btn-fill-skew {% if key == selected_list %}btn-primary{% else %}btn-outline-primary{% endif %}">{{ value }}</a>
+    {% endfor %}
+    {% endfor %}
+    </div>
+ 
    {% for movie in movies %}
    <div class="col-lg-3 col-md-6 mb-4">
        <div class="card h-100">
-           <img class="card-img-top" src="http://place-hold.it/300x500" alt="">
+        <img src="{{ tmdb_image_url(movie.poster_path, "w780") }}">
            <div class="card-body">
-               <h4 class="card-title">Tytuł filmu</h4>
+               <h4 class="card-title">{{ movie['title'] }}</h4>
            </div>
            <div class="card-footer text-center">
-               <a href="#" class="btn btn-primary">Pokaż więcej</a>
+           <a href="{{ url_for('movie_details', movie_id=movie.id) }}">Pokaż więcej</a>
            </div>
        </div>
    </div>
