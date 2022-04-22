@@ -3,7 +3,6 @@ from ssl import ALERT_DESCRIPTION_UNSUPPORTED_CERTIFICATE
 import requests
 
 list_to_choose = [{'popular':'Popular'}, {'upcoming':'Upcoming'}, {'now_playing': 'Now Playing'}, {'top_rated':'Top Rated'}]
-
 api_token = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmNWE0ODAwNjAyYWNhZmQyOTk1NzQyNTUyNjQwNjUxYyIsInN1YiI6IjYyNGRiMDM2MTg4NjRiMDBhMTcwMjdmMiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.eD3iQwps65PMH2kf7ua8KbqWpFVXabq8zgZ5jY4KoUU"
 
 
@@ -47,4 +46,19 @@ def get_single_movie(movie_id):
     response = requests.get(endpoint, headers=headers)
     return response.json()
 
+def get_searched_movies(search_query):
+    url = f"https://api.themoviedb.org/3/search/movie?query={search_query}"
+    headers = {
+        "Authorization": f"Bearer {api_token}"
+    }
+    response = requests.get(url, headers=headers)
+    return response.json()
+
+def get_searched_series():
+    url = f"https://api.themoviedb.org/3/tv/airing_today"
+    headers = {
+        "Authorization": f"Bearer {api_token}"
+    }
+    response = requests.get(url, headers=headers)
+    return response.json()
 
